@@ -11,11 +11,16 @@ namespace ULMSWinFormsApp
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtUsername.Text) || string.IsNullOrWhiteSpace(txtPassword.Text))
+            {
+                MessageBox.Show("Fields cannot be empty.");
+                return;
+            }
             string username = txtUsername.Text;
             string password = txtPassword.Text;
 
-            // Intentional faulty validation logic (for testing scenario)
-            if (username == "admin" || password == "1234")
+
+            if (username == "admin" && password == "1234")
             {
                 MessageBox.Show("Login Successful!");
 

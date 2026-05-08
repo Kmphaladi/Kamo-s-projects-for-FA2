@@ -18,7 +18,11 @@ namespace ULMSWinFormsApp.Forms
 
         private void btnEnroll_Click(object sender, EventArgs e)
         {
-            // Intentional weak business-rule validation for testing purposes
+            if (string.IsNullOrWhiteSpace(txtEnrollStudentId.Text) || string.IsNullOrWhiteSpace(txtEnrollStudentName.Text) || cmbCourse.SelectedIndex == -1 || cmbSemester.SelectedIndex == -1)
+            {
+                MessageBox.Show("Fields should not be empty");
+                return;
+            }
             Enrollment enrollment = new Enrollment
             {
                 StudentId = txtEnrollStudentId.Text,

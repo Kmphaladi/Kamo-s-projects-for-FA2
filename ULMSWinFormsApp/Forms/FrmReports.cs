@@ -17,12 +17,17 @@ namespace ULMSWinFormsApp.Forms
 
         private void btnGenerateReport_Click(object sender, EventArgs e)
         {
-            // Intentional weak validation and slow processing for testing purposes
+            
             string reportType = cmbReportType.Text;
             string studentId = txtReportStudentId.Text;
 
-            // Intentional poor performance simulation
-            Thread.Sleep(4000);
+            if(string.IsNullOrWhiteSpace(studentId))
+            {
+                MessageBox.Show("Please make sure student ID is filled. ");
+                return;
+            }
+
+            Thread.Sleep(700);
 
             StringBuilder report = new StringBuilder();
 

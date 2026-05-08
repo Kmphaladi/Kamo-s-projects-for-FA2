@@ -18,17 +18,31 @@ namespace ULMSWinFormsApp.Forms
 
         private void btnCalculateResults_Click(object sender, EventArgs e)
         {
-            // Intentional weak validation and faulty average logic for testing purposes
+           
             MarkRecord record = new MarkRecord();
 
             record.StudentId = txtMarkStudentId.Text;
             record.StudentName = txtMarkStudentName.Text;
-            record.Subject1 = Convert.ToDouble(txtSubject1.Text);
-            record.Subject2 = Convert.ToDouble(txtSubject2.Text);
-            record.Subject3 = Convert.ToDouble(txtSubject3.Text);
+            if (string.IsNullOrWhiteSpace(txtSubject1.Text) || string.IsNullOrWhiteSpace(txtSubject2.Text) || string.IsNullOrWhiteSpace(txtSubject3.Text))
+            {
+                MessageBox.Show("Please enter marks for all subjects.");
+                return;
+            }
+            try
+            {
+                record.Subject1 = Convert.ToDouble(txtSubject1.Text);
+                record.Subject2 = Convert.ToDouble(txtSubject2.Text);
+                record.Subject3 = Convert.ToDouble(txtSubject3.Text);
+            }
+            catch
+            {
+                MessageBox.Show("Please enter valid numeric marks.");
+                return;
+            }
+            
 
-            // Intentional faulty calculation
-            record.Average = record.Subject1 + record.Subject2 + record.Subject3 / 3;
+            
+            record.Average = (record.Subject1 + record.Subject2 + record.Subject3) / 3;
 
             if (record.Average >= 50)
             {
@@ -46,7 +60,7 @@ namespace ULMSWinFormsApp.Forms
                 "Subject 1: " + record.Subject1 + Environment.NewLine +
                 "Subject 2: " + record.Subject2 + Environment.NewLine +
                 "Subject 3: " + record.Subject3 + Environment.NewLine +
-                "Average: " + record.Average + Environment.NewLine +
+                "Average: " + record.Average.ToString("F2") + Environment.NewLine +
                 "Final Result: " + record.ResultStatus;
         }
 
